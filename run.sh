@@ -30,7 +30,24 @@ cp xsl/* temp
 cd temp
 
 prefix="Tiller Foundation Template ($budget_name) - Transactions"
-newest_file=$(find $DOWNLOADS_FOLDER -maxdepth 1 -type f -name "$prefix*" -printf "%T@ %p\n" | sort -rn | head -n 1 | cut -d' ' -f2-)
+
+# The line that stopped working when I switched to mac
+# newest_file=$(find $DOWNLOADS_FOLDER -maxdepth 1 -type f -name "$prefix*" -printf "%T@ %p\n" | sort -rn | head -n 1 | cut -d' ' -f2-)
+
+# What ChatGPT said to use instead
+if stat --version >/dev/null 2>&1; then
+  # GNU stat (Linux, Cygwin)
+  newest_file=$(
+    find "$DOWNLOADS_FOLDER" -maxdepth 1 -type f -name "$prefix*" \
+    -exec stat -c "%Y %n" {} \; | sort -rn | head -n 1 | cut -d' ' -f2-
+  )
+else
+  # BSD stat (macOS)
+  newest_file=$(
+    find "$DOWNLOADS_FOLDER" -maxdepth 1 -type f -name "$prefix*" \
+    -exec stat -f "%m %N" {} \; | sort -rn | head -n 1 | cut -d' ' -f2-
+  )
+fi
 
 echo "Processing transactions in $newest_file"
 cp "$newest_file" ./transactions.tsv
