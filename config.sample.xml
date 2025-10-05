@@ -1,0 +1,25 @@
+<!-- Rename this file to config.xml and edit the budget names and account numbers -->
+<accounts>
+
+  <!-- Google sheet name should start with "Tiller Foundation Template (BUSINESS) - Transactions" -->
+  <budget name="BUSINESS">
+    <credit-cards>
+      <account number="xxxx1234"/>
+      <account number="xxxx3333"/>
+    </credit-cards>
+    <bank-accounts>
+      <account number="xxxx5678"/>
+    </bank-accounts>
+  </budget>
+
+  <!-- Google sheet name should start with "Tiller Foundation Template (PERSONAL) - Transactions" -->
+  <budget name="PERSONAL">
+    <credit-cards>
+      <account number="xxxx8765"/>
+    </credit-cards>
+    <bank-accounts>
+      <account number="xxxx4321"/>
+    </bank-accounts>
+  </budget>
+
+</accounts>
